@@ -9,7 +9,7 @@ use Scalar::Util qw{ blessed };
 
 use overload '""' => sub { shift->cidr };
 
-our $VERSION = "0.01";
+our $VERSION = "0.02";
 $VERSION = eval $VERSION;
 
 sub new {
