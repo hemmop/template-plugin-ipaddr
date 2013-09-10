@@ -23,7 +23,6 @@ my %args = (
       repository => 'https://github.com/hemmop/template-plugin-ipaddr',
       bugtracker => 'https://github.com/hemmop/template-plugin-ipaddr/issues',
     },
-    no_index => { directory => ['t'], },
   },
 );
 
