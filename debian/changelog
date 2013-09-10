@@ -1,0 +1,5 @@
+libtemplate-plugin-ipaddr-perl (0.03-1) UNRELEASED; urgency=low
+
+  * Initial release. (Closes: #746476)
+
+ -- Per Carlson <pelle@hemmop.com>  Mon, 12 May 2014 10:12:24 +0200

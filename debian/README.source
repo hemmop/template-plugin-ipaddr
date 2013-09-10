@@ -1,0 +1,5 @@
+This package is maintained in two separate
+git branches: master for upstream source,
+debian for the debian/ directory *only*.
+
+To build this package use git-buildpackage.

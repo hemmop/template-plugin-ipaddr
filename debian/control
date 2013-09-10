@@ -1,0 +1,19 @@
+Source: libtemplate-plugin-ipaddr-perl
+Section: perl
+Priority: optional
+Maintainer: Debian Perl Group <pkg-perl-maintainers@lists.alioth.debian.org>
+Uploaders: Per Carlson <pelle@hemmop.com>
+Build-Depends: debhelper (>= 8)
+Build-Depends-Indep: perl,
+ libtemplate-perl,
+ libnetaddr-ip-perl (>= 4.062)
+Standards-Version: 3.9.5.0
+Homepage: https://metacpan.org/release/Template-Plugin-IPAddr
+
+Package: libtemplate-plugin-ipaddr-perl
+Architecture: all
+Pre-Depends: dpkg (>= 1.15.6~)
+Depends: ${misc:Depends}, ${perl:Depends}
+Description: Template::Toolkit plugin handling IP-addresses
+ Template::Plugin::IPAddr implements an IPAddr class for handling IPv4 and
+ IPv6-addresses in an object-orientated way.
