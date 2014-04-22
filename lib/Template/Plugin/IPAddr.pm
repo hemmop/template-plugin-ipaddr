@@ -25,6 +25,11 @@ sub new {
 
 sub addr { return _compact(shift->{_cidr}) }
 
+sub addr_cidr {
+  my $self = shift;
+  return $self->addr . '/' . $self->{_cidr}->masklen;
+}
+
 sub cidr {
   my $self = shift;
 
@@ -59,23 +64,24 @@ __END__
 
 Template::Plugin::IPAddr - Template::Toolkit plugin handling IP-addresses
 
-=head2 SYNOPSIS
+=head1 SYNOPSIS
 
-  # Create IPaddr object via USE directive...
+  # Create IPAddr object via USE directive...
   [% USE IPAddr %]
   [% USE IPAddr(prefix) %]
 
   # ...or via new
   [% ip = IPAddr.new(prefix) %]
 
-  # methods that return the different parts of the prefix
+  # Methods that return the different parts of the prefix
   [% IPAddr.addr %]
+  [% IPAddr.addr_cidr %]
   [% IPAddr.cidr %]
   [% IPAddr.network %]
   [% IPAddr.netmask %]
   [% IPAddr.wildcard %]
 
-  # method for retriving usable IP-adresses from a prefix
+  # Methods for retrieving usable IP-adresses from a prefix
   [% IPAddr.first %]
   [% IPAddr.last %]
 
@@ -99,7 +105,7 @@ other C<IPAddr> objects with the new() method.
   [% ip = IPAddr.new(prefix) %]
 
 After creating an C<IPaddr> object, you can use the supplied methods for
-retreiving properties of the prefix.
+retrieving properties of the prefix.
 
   [% USE IPAddr('10.0.0.0/24') %]
   [% IPAddr.netmask %]   # 255.255.255.0
@@ -143,9 +149,19 @@ Returns the address part of the prefix as written in the initial value.
   [% USE IPAddr('2001:DB8::DEAD:BEEF') %]
   [% IPAddr.addr %]  # 2001:db8::dead:beef
 
+=head2 addr_cidr
+
+Returns the I<address> in CIDR notation, i.e. as C<address/prefixlen>.
+
+  [% USE IPAddr('10.1.1.1/255.255.255.0') %]
+  [% IPAddr.addr_cidr %]   # 10.1.1.1/24
+
+  [% USE IPAddr('2001:db8:a:b:c:d:e:f/48') %]
+  [% IPAddr.addr_cidr %]  # 2001:db8:a:b:c:d:e:f/48
+
 =head2 cidr
 
-Returns the prefix in CIDR notation, i.e. as C<network/prefixlen>.
+Returns the I<prefix> in CIDR notation, i.e. as C<network/prefixlen>.
 
   [% USE IPAddr('10.1.1.1/255.255.255.0') %]
   [% IPAddr.cidr %]   # 10.1.1.0/24
@@ -154,7 +170,8 @@ Returns the prefix in CIDR notation, i.e. as C<network/prefixlen>.
   [% IPAddr.cidr %]  # 2001:db8:a::/48
 
 Note that differs from the C<cidr> method in L<NetAddr::IP> (which
-returns C<address/prefixlen>).
+returns C<address/prefixlen>). You can retrieve an address on that
+format by using the L</addr_cidr> method.
 
 =head2 first
 
@@ -197,6 +214,9 @@ with all bits inverted).
 
 =head1 NOTES
 
+Please note the subtle, but important, difference between C<addr_cidr>
+and C<cidr> (see L</cidr> for an explanation).
+
 Not all methods are applicable in a IPv6 context. For example there
 are no notation of L<netmask> or L<wildcard> in IPv6, and the L<first>
 and L<last> returns values of no use.
@@ -229,7 +249,7 @@ Per Carlson C<pelle@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2013 Per Carlson
+Copyright 2013,2014 Per Carlson
 
 This module is free software; you can redistribute it and/or modify it
 under the same terms as Perl 5.10.0.
