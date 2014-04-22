@@ -6,8 +6,8 @@ use ExtUtils::MakeMaker;
 my %args = (
   NAME           => 'Template::Plugin::IPAddr',
   AUTHOR         => 'Per Carlson <pelle@cpan.org>',
-  VERSION_FROM   => 'IPAddr.pm',
-  ABSTRACT_FROM  => 'IPAddr.pm',
+  VERSION_FROM   => 'lib/Template/Plugin/IPAddr.pm',
+  ABSTRACT_FROM  => 'lib/Template/Plugin/IPAddr.pm',
   LICENSE        => 'perl',
   BUILD_REQUIRES => {},
   TEST_REQUIRES  => {
