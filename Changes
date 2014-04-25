@@ -1,3 +1,7 @@
+{{$NEXT}}
+	- Added method addr_cidr
+	- Use Dist::Zilla for packaging
+
 0.02	2013-09-10
 	- Added Changes
 	- Updated Makefile.PL
