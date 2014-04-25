@@ -1,4 +1,5 @@
 package Template::Plugin::IPAddr;
+# ABSTRACT: Template::Toolkit plugin handling IP-addresses
 
 use strict;
 use warnings;
@@ -8,9 +9,6 @@ use NetAddr::IP qw{ :lower };
 use Scalar::Util qw{ blessed };
 
 use overload '""' => sub { shift->cidr };
-
-our $VERSION = "0.02";
-$VERSION = eval $VERSION;
 
 sub new {
   my ($class, $context, $arg) = @_;
@@ -59,10 +57,6 @@ sub _compact {
 __END__
 
 =pod
-
-=head1 NAME
-
-Template::Plugin::IPAddr - Template::Toolkit plugin handling IP-addresses
 
 =head1 SYNOPSIS
 
@@ -113,9 +107,7 @@ retrieving properties of the prefix.
   [% IPAddr.last %]      # 10.0.0.254
 
 
-=head1 METHODS
-
-=head2 new
+=method new
 
 Creates a new IPAddr object using an initial value passed as a positional
 parameter. Any string which is accepted by L<< NetAddr::IP->new >> can be
@@ -139,7 +131,7 @@ Examples of (recommended) formats of initial parameters that can be used:
 
 When used as C<[% USE IPAddr %]> the prefix assigned internally is C<0.0.0.0/0>
 
-=head2 addr
+=method addr
 
 Returns the address part of the prefix as written in the initial value.
 
@@ -149,7 +141,7 @@ Returns the address part of the prefix as written in the initial value.
   [% USE IPAddr('2001:DB8::DEAD:BEEF') %]
   [% IPAddr.addr %]  # 2001:db8::dead:beef
 
-=head2 addr_cidr
+=method addr_cidr
 
 Returns the I<address> in CIDR notation, i.e. as C<address/prefixlen>.
 
@@ -159,7 +151,7 @@ Returns the I<address> in CIDR notation, i.e. as C<address/prefixlen>.
   [% USE IPAddr('2001:db8:a:b:c:d:e:f/48') %]
   [% IPAddr.addr_cidr %]  # 2001:db8:a:b:c:d:e:f/48
 
-=head2 cidr
+=method cidr
 
 Returns the I<prefix> in CIDR notation, i.e. as C<network/prefixlen>.
 
@@ -173,21 +165,21 @@ Note that differs from the C<cidr> method in L<NetAddr::IP> (which
 returns C<address/prefixlen>). You can retrieve an address on that
 format by using the L</addr_cidr> method.
 
-=head2 first
+=method first
 
 Returns the first usable IP-address within the prefix.
 
   [% USE IPAddr('10.0.0.0/16') %]
   [% IPAddr.first %]   # 10.0.0.1
 
-=head2 last
+=method last
 
 Returns the last usable IP-address within the prefix.
 
   [% USE IPAddr('10.0.0.0/16') %]
   [% IPAddr.last %]   # 10.0.255.254
 
-=head2 network
+=method network
 
 Returns the network part of the prefix.
 
@@ -197,14 +189,14 @@ Returns the network part of the prefix.
   [% USE IPAddr('2001:db8:a:b:c:d:e:f/48') %]
   [% IPAddr.network %]  # 2001:db8:a::
 
-=head2 netmask
+=method netmask
 
 Returns the netmask part of the prefix.
 
   [% USE IPAddr('10.1.1.1/24') %]
   [% IPAddr.netmask %]   # 255.255.255.0
 
-=head2 wildcard
+=method wildcard
 
 Returns the netmask of the prefix in wildcard format (the netmask
 with all bits inverted).
@@ -238,25 +230,4 @@ L<Template>,
 L<Template::Manual::Config/PLUGINS>,
 L<NetAddr::IP>
 
-=head1 SOURCE CODE REPOSITORY
-
-The source code for this module is held in a public git repository at
-L<https://github.com/hemmop/template-plugin-ipaddr.git>
-
-=head1 AUTHOR
-
-Per Carlson C<pelle@cpan.org>
-
-=head1 COPYRIGHT AND LICENSE
-
-Copyright 2013,2014 Per Carlson
-
-This module is free software; you can redistribute it and/or modify it
-under the same terms as Perl 5.10.0.
-
-For more details, see the full text of the licenses at
-L<http://opensource.org/licenses/Artistic-2.0>,
-and L<http://opensource.org/licenses/GPL-2.0>.
-
 =cut
-
